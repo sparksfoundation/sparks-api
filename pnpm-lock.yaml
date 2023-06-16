@@ -17,6 +17,9 @@ dependencies:
   hyperdht:
     specifier: ^6.5.3
     version: 6.5.3
+  sparks-sdk:
+    specifier: link:../sparks-sdk
+    version: link:../sparks-sdk
 
 devDependencies:
   '@types/node':
