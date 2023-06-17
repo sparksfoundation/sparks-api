@@ -9,7 +9,9 @@
     "@hyperswarm/dht-relay": "^0.4.1",
     "fastify": "^4.17.0",
     "fastify-websocket-server": "^1.0.2",
-    "hyperdht": "^6.5.3"
+    "hyperdht": "^6.5.3",
+    "simple-signal-server": "^3.0.0",
+    "sparks-sdk": "link:../sparks-sdk"
   },
   "devDependencies": {
     "@types/node": "^20.2.5",
