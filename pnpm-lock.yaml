@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@fastify/websocket':
+    specifier: ^8.1.0
+    version: 8.1.0
   '@hyperswarm/dht-relay':
     specifier: ^0.4.1
     version: 0.4.1
@@ -17,9 +20,6 @@ dependencies:
   hyperdht:
     specifier: ^6.5.3
     version: 6.5.3
-  simple-signal-server:
-    specifier: ^3.0.0
-    version: 3.0.0
   sparks-sdk:
     specifier: link:../sparks-sdk
     version: link:../sparks-sdk
@@ -70,6 +70,16 @@ packages:
     resolution: {integrity: sha512-aZAXGYo6m22Fk1zZzEUKBvut/CIIQe/BapEORnxiD5Qr0kPHqqI69NtEMCme74h+at72sPhbkb4ZrLd1W3KRLA==}
     dependencies:
       fast-json-stringify: 5.7.0
+    dev: false
+
+  /@fastify/websocket@8.1.0:
+    resolution: {integrity: sha512-7Tk+ODgvS/S9IyPXuXDU1v5tpchAeSWFH0B3Ldz+cnBKy5+lEmuj4ncLhVUzXgn9w3ycX/Vhf1mEEkcemBFUIQ==}
+    dependencies:
+      fastify-plugin: 4.5.0
+      ws: 8.13.0
+    transitivePeerDependencies:
+      - bufferutil
+      - utf-8-validate
     dev: false
 
   /@hyperswarm/dht-relay@0.4.1:
@@ -444,6 +454,10 @@ packages:
       semver: 6.3.0
     dev: false
 
+  /fastify-plugin@4.5.0:
+    resolution: {integrity: sha512-79ak0JxddO0utAXAQ5ccKhvs6vX2MGyHHMMsmZkBANrq3hXc1CHzvNPHOcvTsVMEPl5I+NT+RO4YKMGehOfSIg==}
+    dev: false
+
   /fastify-websocket-server@1.0.2:
     resolution: {integrity: sha512-6aMj+aq6mJtzSUrnWaimVDWrS5cNe4WL0iqwJHfTKuiM2X8nqbjrZu0tVsXHasOHX1jOT9U8JuphCS845z/Qxg==}
     engines: {node: '>=8.0.0'}
@@ -566,10 +580,6 @@ packages:
     resolution: {integrity: sha512-Ius2VYcGNk7T90CppJqcIkS5ooHUZyIQK+ClZfMfMNFEF9VSE73Fq+906u/CWu92x4gzZMWOwfFYckPObzdEbA==}
     dev: true
 
-  /inherits@2.0.4:
-    resolution: {integrity: sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==}
-    dev: false
-
   /ipaddr.js@1.9.1:
     resolution: {integrity: sha512-0KI/607xoxSToH7GjN1FfSbLoU0+btTicjsQSWQlh/hZykN8KpmMf7uYwPW3R+akZ6R/w18ZlXSHBYXiYUPO3g==}
     engines: {node: '>= 0.10'}
@@ -640,33 +650,8 @@ packages:
     resolution: {integrity: sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==}
     dev: true
 
-  /nanoassert@1.1.0:
-    resolution: {integrity: sha512-C40jQ3NzfkP53NsO8kEOFd79p4b9kDXQMwgiY1z8ZwrDZgUyom0AHwGegF4Dm99L+YoYhuaB0ceerUcXmqr1rQ==}
-    dev: false
-
   /nanoassert@2.0.0:
     resolution: {integrity: sha512-7vO7n28+aYO4J+8w96AzhmU8G+Y/xpPDJz/se19ICsqj/momRbb9mh9ZUtkoJ5X3nTnPdhEJyc0qnM6yAsHBaA==}
-    dev: false
-
-  /nanobus@4.5.0:
-    resolution: {integrity: sha512-7sBZo9wthqNJ7QXnfVXZL7fkKJLN55GLOdX+RyZT34UOvxxnFtJe/c7K0ZRLAKOvaY1xJThFFn0Usw2H9R6Frg==}
-    dependencies:
-      nanoassert: 1.1.0
-      nanotiming: 7.3.1
-      remove-array-items: 1.1.1
-    dev: false
-
-  /nanoscheduler@1.0.3:
-    resolution: {integrity: sha512-jBbrF3qdU9321r8n9X7yu18DjP31Do2ItJm3mWrt90wJTrnDO+HXpoV7ftaUglAtjgj9s+OaCxGufbvx6pvbEQ==}
-    dependencies:
-      nanoassert: 1.1.0
-    dev: false
-
-  /nanotiming@7.3.1:
-    resolution: {integrity: sha512-l3lC7v/PfOuRWQa8vV29Jo6TG10wHtnthLElFXs4Te4Aas57Fo4n1Q8LH9n+NDh9riOzTVvb2QNBhTS4JUKNjw==}
-    dependencies:
-      nanoassert: 1.1.0
-      nanoscheduler: 1.0.3
     dev: false
 
   /napi-macros@2.2.2:
@@ -835,10 +820,6 @@ packages:
       b4a: 1.6.4
     dev: false
 
-  /remove-array-items@1.1.1:
-    resolution: {integrity: sha512-MXW/jtHyl5F1PZI7NbpS8SOtympdLuF20aoWJT5lELR1p/HJDd5nqW8Eu9uLh/hCRY3FgvrIT5AwDCgBODklcA==}
-    dev: false
-
   /require-from-string@2.0.2:
     resolution: {integrity: sha512-Xf0nWe6RseziFMu+Ap9biiUbmplq6S9/p+7w7YXP/JBHhrUDDUhwa+vANyubuqfZWTveU//DYVGsDG7RKL/vEw==}
     engines: {node: '>=0.10.0'}
@@ -930,13 +911,6 @@ packages:
     dependencies:
       b4a: 1.6.4
       nanoassert: 2.0.0
-    dev: false
-
-  /simple-signal-server@3.0.0:
-    resolution: {integrity: sha512-7nSmoU0wXG3wqoNVHlOV1rVlwB0sfpFxg0wYaUnB72QDN9r1oXkn0D7OyBv5NDSESPdUITsr18e1DayD64hu6Q==}
-    dependencies:
-      inherits: 2.0.4
-      nanobus: 4.5.0
     dev: false
 
   /simple-update-notifier@1.1.0:
