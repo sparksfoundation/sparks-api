@@ -7,11 +7,10 @@ const channels = new Spark({
     signer: Ed25519,
     hasher: Blake3,
     cipher: X25519SalsaPoly,
-    channels: [ RestAPI ]
 });
 
 channels.controller.incept();
-channels.channels._RestAPI.receive(
+RestAPI.receive(
     ({ details, resolve, reject }: { details: any, resolve: any, reject: any }) => {
         resolve();
     }, { spark: channels }
@@ -20,7 +19,7 @@ channels.channels._RestAPI.receive(
 const receiveChannels = async (server: FastifyInstance) => {
     server.post('/channels', async (request, reply) => {
         const payload = request.body
-        const response = await channels.channels._RestAPI.eventHandler(payload);
+        const response = await RestAPI.eventHandler(payload);
         reply.send(response);
     })
 }
