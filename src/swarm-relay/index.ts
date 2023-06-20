@@ -1,18 +1,16 @@
-import { FastifyPluginCallback } from "fastify"
+import { FastifyInstance } from "fastify"
+
 const DHT = require('hyperdht')
 const { relay } = require('@hyperswarm/dht-relay')
-const Stream = require('@hyperswarm/dht-relay/ws')
 const dht = new DHT()
 
-const swarmRelay:FastifyPluginCallback = (server, _, done) => {
-    server.register(require('fastify-websocket-server')).after((error: Error) => {
-        if (error) throw error
-        server.wss.on('connection', (ws: WebSocket) => {
-            relay(dht, new Stream(false, ws))
+const enableSwarmRelay = async (server: FastifyInstance) => {
+    server.register(require('@fastify/websocket'))
+    server.register(async function (fastify: FastifyInstance) {
+        fastify.get('/swarm-relay', { websocket: true } as any, (connection: any /* SocketStream */, req /* FastifyRequest */) => {
+            relay(dht, connection);
         })
     })
-    done()
 }
 
-module.exports = swarmRelay
-
+module.exports.enableSwarmRelay = enableSwarmRelay
