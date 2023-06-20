@@ -22,7 +22,7 @@ dependencies:
     version: 6.5.3
   sparks-sdk:
     specifier: github:sparksfoundation/sparks-sdk
-    version: github.com/sparksfoundation/sparks-sdk/5f939238bc72528c4caa2676de876bf183e84bee
+    version: github.com/sparksfoundation/sparks-sdk/ed7a6bd376468c6647dbc39cfd9f0408806957e1
 
 devDependencies:
   '@types/node':
@@ -86,17 +86,17 @@ packages:
     resolution: {integrity: sha512-jvP6LkUH0DVbKG5pO1jbsaNmrWObjVLaCXSocqILf7pUXpAmiSOJhLblT5BUVqDzEjNHM8v7cfHLbO79EAfsqA==}
     hasBin: true
     dependencies:
-      '@hyperswarm/secret-stream': 6.1.2
+      '@hyperswarm/secret-stream': 6.2.0
       b4a: 1.6.4
-      compact-encoding: 2.11.0
+      compact-encoding: 2.12.0
       compact-encoding-net: 1.2.0
       events: 3.3.0
-      graceful-goodbye: 1.2.1
+      graceful-goodbye: 1.3.0
       hyperdht: 6.5.3
       protomux: 3.4.1
       safety-catch: 1.0.2
       sodium-universal: 4.0.0
-      streamx: 2.14.0
+      streamx: 2.15.0
       timeout-refresh: 2.0.1
       ws: 8.13.0
     transitivePeerDependencies:
@@ -104,8 +104,8 @@ packages:
       - utf-8-validate
     dev: false
 
-  /@hyperswarm/secret-stream@6.1.2:
-    resolution: {integrity: sha512-oem+ZEG+wOU1K47qGi51pKyqG1N3F+zz42xmReHeGZVR84y+K+6VQIXCON4EozYad8HEGCixpupt8yH8W4sMxg==}
+  /@hyperswarm/secret-stream@6.2.0:
+    resolution: {integrity: sha512-eBoHJaw8KUNR1Zj8HzrlvZ+/RzSFXkZFBBovzgkso93D3DEVHrfP4ddhwbq7HQI8l5YnRYm4Obj+IsdX1PiT5w==}
     dependencies:
       b4a: 1.6.4
       hypercore-crypto: 3.3.1
@@ -113,7 +113,7 @@ packages:
       noise-handshake: 3.0.3
       sodium-secretstream: 1.1.0
       sodium-universal: 4.0.0
-      streamx: 2.14.0
+      streamx: 2.15.0
       timeout-refresh: 2.0.1
     dev: false
 
@@ -190,8 +190,8 @@ packages:
     engines: {node: '>=0.4.0'}
     dev: true
 
-  /acorn@8.8.2:
-    resolution: {integrity: sha512-xjIYgE8HBrkpd/sJqOGNspf8uHG+NOHGOw6a/Urj8taM2EXfdNAH2oFcPeIFfsv3+kz/mJrS5VuMqbNLjCa2vw==}
+  /acorn@8.9.0:
+    resolution: {integrity: sha512-jaVNAFBHNLXspO543WnNNPZFRtavh3skAkITqD0/2aeMkKZTN+254PyhwxFYrk3vQ1xfY+2wbesJMs/JC8/PwQ==}
     engines: {node: '>=0.4.0'}
     hasBin: true
     dev: true
@@ -285,7 +285,7 @@ packages:
   /bogon@1.1.0:
     resolution: {integrity: sha512-a6SnToksXHuUlgeMvI/txWmTcKz7c7iBa8f0HbXL4toN1Uza/CTQ4F7n9jSDX49TCpxv3KUP100q4sZfwLyLiw==}
     dependencies:
-      compact-encoding: 2.11.0
+      compact-encoding: 2.12.0
       compact-encoding-net: 1.2.0
     dev: false
 
@@ -334,11 +334,11 @@ packages:
   /compact-encoding-net@1.2.0:
     resolution: {integrity: sha512-LVXpNpF7PGQeHRVVLGgYWzuVoYAaDZvKUsUxRioGfkotzvOh4AzoQF1HBH3zMNaSnx7gJXuUr3hkjnijaH/Eng==}
     dependencies:
-      compact-encoding: 2.11.0
+      compact-encoding: 2.12.0
     dev: false
 
-  /compact-encoding@2.11.0:
-    resolution: {integrity: sha512-CRfTuyy9Tg7EwxNKvIq3yFIr2JnJLyVr9Yj234VsDCL59hdXcZH3TdzY/2kwbAqVogIoRBJjnNKCEnXbxTIEeg==}
+  /compact-encoding@2.12.0:
+    resolution: {integrity: sha512-8eCZLmyBT4LtC90F/ekIqWos8Y7NaFxY75qa/SlSDVa95NVgMcibQb8z8MTeKb9zctemOJczSXMf5pwMqKjYEQ==}
     dependencies:
       b4a: 1.6.4
     dev: false
@@ -383,23 +383,23 @@ packages:
   /debugging-stream@2.0.0:
     resolution: {integrity: sha512-xwfl6wB/3xc553uwtGnSa94jFxnGOc02C0WU2Nmzwr80gzeqn1FX4VcbvoKIhe8L/lPq4BTQttAbrTN94uN8rA==}
     dependencies:
-      streamx: 2.14.0
+      streamx: 2.15.0
     dev: false
 
   /dht-rpc@6.7.0:
     resolution: {integrity: sha512-owzv0fEPFD+5xkkm5fpD9i1tRcpxY8SbAhM+JHnDlcICuNMaPWvzUI+2fg4su6YteKXlShshsAEGy//vfT7pHg==}
     dependencies:
       b4a: 1.6.4
-      compact-encoding: 2.11.0
+      compact-encoding: 2.12.0
       compact-encoding-net: 1.2.0
       events: 3.3.0
       fast-fifo: 1.2.0
       kademlia-routing-table: 1.0.1
       nat-sampler: 1.0.1
       sodium-universal: 4.0.0
-      streamx: 2.14.0
+      streamx: 2.15.0
       time-ordered-set: 1.0.2
-      udx-native: 1.5.8
+      udx-native: 1.6.1
     dev: false
 
   /diff@4.0.2:
@@ -448,8 +448,8 @@ packages:
       rfdc: 1.3.0
     dev: false
 
-  /fast-querystring@1.1.1:
-    resolution: {integrity: sha512-qR2r+e3HvhEFmpdHMv//U8FnFlnYjaC6QKDuaXALDkw2kvHO8WDjxH+f/rHGR4Me4pnk8p9JAkRNTjYHAKRn2Q==}
+  /fast-querystring@1.1.2:
+    resolution: {integrity: sha512-g6KuKWmFXc0fID8WWH0jit4g0AGBoJhCkJMb1RmbsSEUNvQ+ZC8D6CUZ+GtF8nMzSPXnhiePyyqqipzNNEnHjg==}
     dependencies:
       fast-decode-uri-component: 1.0.1
     dev: false
@@ -495,13 +495,13 @@ packages:
       fast-content-type-parse: 1.0.0
       fast-json-stringify: 5.7.0
       find-my-way: 7.6.2
-      light-my-request: 5.9.1
+      light-my-request: 5.10.0
       pino: 8.14.1
       process-warning: 2.2.0
       proxy-addr: 2.0.7
       rfdc: 1.3.0
       secure-json-parse: 2.7.0
-      semver: 7.5.1
+      semver: 7.5.2
       tiny-lru: 11.0.1
     transitivePeerDependencies:
       - supports-color
@@ -525,7 +525,7 @@ packages:
     engines: {node: '>=14'}
     dependencies:
       fast-deep-equal: 3.1.3
-      fast-querystring: 1.1.1
+      fast-querystring: 1.1.2
       safe-regex2: 2.0.0
     dev: false
 
@@ -549,8 +549,10 @@ packages:
       is-glob: 4.0.3
     dev: true
 
-  /graceful-goodbye@1.2.1:
-    resolution: {integrity: sha512-W1tKCFpvsTMDJtbdfdKQsoVh1JtVyrRYizpzQAURuGPdXoBC/lWyTElZv1Zs+xxQqyvBF7KRpy+vkkh5Lbl86A==}
+  /graceful-goodbye@1.3.0:
+    resolution: {integrity: sha512-hcZOs20emYlTM7MmUE0FpuZcjlk2GPsR+UYTHDeWxtGjXcbh2CawGi8vlzqsIvspqAbot7mRv3sC/uhgtKc4hQ==}
+    dependencies:
+      safety-catch: 1.0.2
     dev: false
 
   /has-flag@3.0.0:
@@ -562,7 +564,7 @@ packages:
     resolution: {integrity: sha512-Fo0ZBMDW3P7HFh58AQdxsVop0Xh0Bper4Pyl5Dpc+tvGos6je2ufJpeepaHaI0mNkKq4we1ikd47kTnx2XJd/w==}
     dependencies:
       b4a: 1.6.4
-      compact-encoding: 2.11.0
+      compact-encoding: 2.12.0
       sodium-universal: 4.0.0
     dev: false
 
@@ -570,10 +572,10 @@ packages:
     resolution: {integrity: sha512-Zsot2GMOXR3eG2ifg2CKqAlfGa4MP306kpAyWuTrWRjRRynXZq+kRB6RPkZ+AV9+fqMigL3r/AFnKQ1Gwpo+iw==}
     hasBin: true
     dependencies:
-      '@hyperswarm/secret-stream': 6.1.2
+      '@hyperswarm/secret-stream': 6.2.0
       b4a: 1.6.4
       bogon: 1.1.0
-      compact-encoding: 2.11.0
+      compact-encoding: 2.12.0
       compact-encoding-net: 1.2.0
       debugging-stream: 2.0.0
       dht-rpc: 6.7.0
@@ -632,8 +634,8 @@ packages:
     resolution: {integrity: sha512-dKk19sC3/+kWhBIvOKCthxVV+JH0NrswSBq4sA4eOkkPMqQM1rRuOWte1WSKXeP8r9Nx4NuiH2gny3lMddJTpw==}
     dev: false
 
-  /light-my-request@5.9.1:
-    resolution: {integrity: sha512-UT7pUk8jNCR1wR7w3iWfIjx32DiB2f3hFdQSOwy3/EPQ3n3VocyipUxcyRZR0ahoev+fky69uA+GejPa9KuHKg==}
+  /light-my-request@5.10.0:
+    resolution: {integrity: sha512-ZU2D9GmAcOUculTTdH9/zryej6n8TzT+fNGdNtm6SDp5MMMpHrJJkvAdE3c6d8d2chE9i+a//dS9CWZtisknqA==}
     dependencies:
       cookie: 0.5.0
       process-warning: 2.2.0
@@ -795,7 +797,7 @@ packages:
     resolution: {integrity: sha512-V8MDCiDGqxM4/hGOewmezbCX7HZfcYGtpdO0MK6pEhBLSknENuqqE98OEWyQuwDalfHULVO8ml7LSwTB5g5Z6g==}
     dependencies:
       b4a: 1.6.4
-      compact-encoding: 2.11.0
+      compact-encoding: 2.12.0
       queue-tick: 1.0.1
       safety-catch: 1.0.2
     dev: false
@@ -923,8 +925,8 @@ packages:
     hasBin: true
     dev: true
 
-  /semver@7.5.1:
-    resolution: {integrity: sha512-Wvss5ivl8TMRZXXESstBA4uR5iXgEN/VC5/sOcuXdVLzcdkz4HWetIoRfG5gb5X+ij/G9rw9YoGn3QoQ8OCSpw==}
+  /semver@7.5.2:
+    resolution: {integrity: sha512-SoftuTROv/cRjCze/scjGyiDtcUyxw1rgYQSZY7XTmtR5hX+dm76iDbTH8TkLPHCQmlbQVSSbNZCPM2hb0knnQ==}
     engines: {node: '>=10'}
     hasBin: true
     dependencies:
@@ -988,8 +990,8 @@ packages:
       xsalsa20: 1.2.0
     dev: false
 
-  /sodium-native@4.0.3:
-    resolution: {integrity: sha512-0zOjNag+0gIRe56O1TkTfltT+b+JhOpGV6u69MVoKy+BTH95viPPJ0exHHnmgRliWKDGyYsyNeyBamfcU7ZlgQ==}
+  /sodium-native@4.0.4:
+    resolution: {integrity: sha512-faqOKw4WQKK7r/ybn6Lqo1F9+L5T6NlBJJYvpxbZPetpWylUVqz449mvlwIBKBqxEHbWakWuOlUt8J3Qpc4sWw==}
     requiresBuild: true
     dependencies:
       node-gyp-build: 4.6.0
@@ -1012,7 +1014,7 @@ packages:
       sha512-universal: 1.2.1
       siphash24: 1.3.1
       sodium-javascript: 0.8.0
-      sodium-native: 4.0.3
+      sodium-native: 4.0.4
       xsalsa20: 1.2.0
     dev: false
 
@@ -1027,8 +1029,8 @@ packages:
     engines: {node: '>= 10.x'}
     dev: false
 
-  /streamx@2.14.0:
-    resolution: {integrity: sha512-Xu53ZdSG4F+zVZug4JCNm7h2OkQlieUFySswcHuW00WbKmhNkAXjme7535aNEQNz7iINfC5PLNvvaGBFlpzoJA==}
+  /streamx@2.15.0:
+    resolution: {integrity: sha512-HcxY6ncGjjklGs1xsP1aR71INYcsXFJet5CU1CHqihQ2J5nOsbd4OjgjHO42w/4QNv9gZb3BueV+Vxok5pLEXg==}
     dependencies:
       fast-fifo: 1.2.0
       queue-tick: 1.0.1
@@ -1094,7 +1096,7 @@ packages:
       '@tsconfig/node14': 1.0.3
       '@tsconfig/node16': 1.0.4
       '@types/node': 20.2.5
-      acorn: 8.8.2
+      acorn: 8.9.0
       acorn-walk: 8.2.0
       arg: 4.1.3
       create-require: 1.1.1
@@ -1123,15 +1125,15 @@ packages:
     hasBin: true
     dev: true
 
-  /udx-native@1.5.8:
-    resolution: {integrity: sha512-VCk9f1WX0+ic0fNeAmMrfwwj2hB406yeqwInO9kATspTmgzKKoDpIp2gP6ClKBdwVqbwgROyuJVKg2lih/molw==}
+  /udx-native@1.6.1:
+    resolution: {integrity: sha512-7DXF1SDHdOv8hvH8wbJ82c5i43F3F1Drj/k6JL0Rn9PQhtqfidw7z5fY+Y8uB7E5TQ7ZLLnaAav12CgXk8WCTg==}
     requiresBuild: true
     dependencies:
       b4a: 1.6.4
       events: 3.3.0
       napi-macros: 2.2.2
       node-gyp-build: 4.6.0
-      streamx: 2.14.0
+      streamx: 2.15.0
     dev: false
 
   /undefsafe@2.0.5:
@@ -1200,8 +1202,8 @@ packages:
     engines: {node: '>=6'}
     dev: true
 
-  github.com/sparksfoundation/sparks-sdk/5f939238bc72528c4caa2676de876bf183e84bee:
-    resolution: {tarball: https://codeload.github.com/sparksfoundation/sparks-sdk/tar.gz/5f939238bc72528c4caa2676de876bf183e84bee}
+  github.com/sparksfoundation/sparks-sdk/ed7a6bd376468c6647dbc39cfd9f0408806957e1:
+    resolution: {tarball: https://codeload.github.com/sparksfoundation/sparks-sdk/tar.gz/ed7a6bd376468c6647dbc39cfd9f0408806957e1}
     name: sparks-sdk
     version: 0.0.1
     dependencies:
