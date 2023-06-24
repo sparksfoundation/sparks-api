@@ -17,6 +17,7 @@ channels.controller.incept();
 RestAPI.receive(
   async ({ details, resolve, reject }: { details: any, resolve: any, reject: any }) => {
     const channel = await resolve();
+    channel.onmessage = ({ data }: any) => console.log(channel.peer.identifier.slice(0, 4) + ': ' + data)
   }, { spark: channels }
 );
 
