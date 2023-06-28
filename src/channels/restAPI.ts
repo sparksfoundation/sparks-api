@@ -1,11 +1,11 @@
 import { FastifyInstance } from "fastify";
 
 const { Spark } = require('sparks-sdk');
-const { RestAPI } = require('sparks-sdk/channel/Http');
+const { RestAPI } = require('sparks-sdk/channels/Http');
 const { X25519SalsaPoly } = require('sparks-sdk/cipher/X25519SalsaPoly');
-const { Basic } = require('sparks-sdk/controller/Basic');
-const { Blake3 } = require('sparks-sdk/hasher/Blake3');
-const { Ed25519 } = require('sparks-sdk/signer/Ed25519');
+const { Basic } = require('sparks-sdk/controllers/Basic');
+const { Blake3 } = require('sparks-sdk/hashers/Blake3');
+const { Ed25519 } = require('sparks-sdk/signers/Ed25519');
 
 const channels = new Spark({
   cipher: X25519SalsaPoly,
