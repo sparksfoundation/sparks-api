@@ -2,7 +2,7 @@ import { FastifyInstance } from "fastify";
 
 const { Spark } = require('sparks-sdk');
 const { RestAPI } = require('sparks-sdk/channels/Http');
-const { X25519SalsaPoly } = require('sparks-sdk/cipher/X25519SalsaPoly');
+const { X25519SalsaPoly } = require('sparks-sdk/ciphers/X25519SalsaPoly');
 const { Basic } = require('sparks-sdk/controllers/Basic');
 const { Blake3 } = require('sparks-sdk/hashers/Blake3');
 const { Ed25519 } = require('sparks-sdk/signers/Ed25519');
@@ -15,7 +15,7 @@ const channels = new Spark({
 });
 channels.generateKeyPairs()
   .then((keyPairs: any) => {
-    channels.setKeyPairs({ keyPairs })
+    channels.setKeyPairs(keyPairs)
     channels.incept()
   })
 
