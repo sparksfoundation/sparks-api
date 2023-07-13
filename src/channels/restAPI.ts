@@ -1,7 +1,7 @@
 import { FastifyInstance } from "fastify";
 
 const { Spark } = require('sparks-sdk');
-const { HttpRest } = require('sparks-sdk/channels/ChannelTransports');
+const { HttpRest } = require('sparks-sdk/channels/ChannelTransports/HttpRest');
 const { ChannelRequestEvent } = require('sparks-sdk/channels/ChannelEvent');
 const { X25519SalsaPoly } = require('sparks-sdk/ciphers/X25519SalsaPoly');
 const { Basic } = require('sparks-sdk/controllers/Basic');
