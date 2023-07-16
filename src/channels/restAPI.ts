@@ -20,16 +20,17 @@ channels.incept();
 HttpRest.receive(async ({ event, confirmOpen }: any ) => {
   const channel = await confirmOpen();
   channel.on(channel.eventTypes.ANY_EVENT, async (event: any) => {
-    const eventInstance = new ChannelRequestEvent(event);
-    await channel.openEvent(eventInstance);
-    console.log(eventInstance.data);
+    const data = await channel.openEvent(event);
+    console.log(data);
   });
 }, { spark: channels });
 
 module.exports.receiveChannels = async (server: FastifyInstance) => {
   server.post('/restAPI', async (request, reply) => {
     const payload = request.body as any;
-    const response = await HttpRest.requestHandler(payload);
-    reply.send(response || {});
+    const origin = request.headers.origin || request.headers.host;
+    const data = { ...payload.data, origin };
+    const response = await HttpRest.requestHandler({ ...payload});
+    reply.send(response);
   })
 }
