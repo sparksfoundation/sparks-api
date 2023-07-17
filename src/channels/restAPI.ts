@@ -1,7 +1,8 @@
 import { FastifyInstance } from "fastify";
 
 const { Spark } = require('sparks-sdk');
-const { RestAPI } = require('sparks-sdk/channels/Http');
+const { HttpRest } = require('sparks-sdk/channels/ChannelTransports/HttpRest');
+const { ChannelRequestEvent } = require('sparks-sdk/channels/ChannelEvent');
 const { X25519SalsaPoly } = require('sparks-sdk/ciphers/X25519SalsaPoly');
 const { Basic } = require('sparks-sdk/controllers/Basic');
 const { Blake3 } = require('sparks-sdk/hashers/Blake3');
@@ -13,23 +14,23 @@ const channels = new Spark({
   hasher: Blake3,
   signer: Ed25519,
 });
-channels.generateKeyPairs()
-  .then((keyPairs: any) => {
-    channels.setKeyPairs(keyPairs)
-    channels.incept()
-  })
 
-RestAPI.handleOpenRequests(
-  async ({ details, resolve, reject }: { details: any, resolve: any, reject: any }) => {
-    const channel = await resolve();
-    channel.onmessage = ({ data }: any) => console.log(channel.peer.identifier.slice(0, 4) + ': ' + data)
-  }, { spark: channels }
-);
+channels.incept();
+
+HttpRest.receive(async ({ event, confirmOpen }: any ) => {
+  const channel = await confirmOpen();
+  channel.on(channel.eventTypes.MESSAGE_REQUEST, async (event: any) => {
+    const data = await channel.openEventData(event.seal);
+    console.log(data);
+  });
+}, { spark: channels });
 
 module.exports.receiveChannels = async (server: FastifyInstance) => {
   server.post('/restAPI', async (request, reply) => {
     const payload = request.body as any;
-    const response = await RestAPI.requestHandler(payload);
-    reply.send(response || {});
+    const origin = request.headers.origin || request.headers.host;
+    const data = { ...payload.data, origin };
+    const response = await HttpRest.requestHandler({ ...payload});
+    reply.send(response);
   })
 }
