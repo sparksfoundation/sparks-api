@@ -19,8 +19,8 @@ channels.incept();
 
 HttpRest.receive(async ({ event, confirmOpen }: any ) => {
   const channel = await confirmOpen();
-  channel.on(channel.eventTypes.ANY_EVENT, async (event: any) => {
-    const data = await channel.openEvent(event);
+  channel.on(channel.eventTypes.MESSAGE_REQUEST, async (event: any) => {
+    const data = await channel.openEventData(event.seal);
     console.log(data);
   });
 }, { spark: channels });
