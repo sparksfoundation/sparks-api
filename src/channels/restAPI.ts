@@ -1,12 +1,10 @@
 import { FastifyInstance } from "fastify";
-
-const { Spark } = require('sparks-sdk');
-const { HttpRest } = require('sparks-sdk/channels/ChannelTransports/HttpRest');
-const { ChannelRequestEvent } = require('sparks-sdk/channels/ChannelEvent');
-const { X25519SalsaPoly } = require('sparks-sdk/ciphers/X25519SalsaPoly');
-const { Basic } = require('sparks-sdk/controllers/Basic');
-const { Blake3 } = require('sparks-sdk/hashers/Blake3');
-const { Ed25519 } = require('sparks-sdk/signers/Ed25519');
+import { Spark } from "sparks-sdk";
+import { HttpRest } from "sparks-sdk/channels/HttpRest";
+import { X25519SalsaPoly } from "sparks-sdk/ciphers/X25519SalsaPoly";
+import { Basic } from "sparks-sdk/controllers/Basic";
+import { Blake3 } from "sparks-sdk/hashers/Blake3";
+import { Ed25519 } from "sparks-sdk/signers/Ed25519";
 
 const channels = new Spark({
   cipher: X25519SalsaPoly,
@@ -20,7 +18,7 @@ channels.incept();
 HttpRest.receive(async ({ event, confirmOpen }: any ) => {
   const channel = await confirmOpen();
   channel.on(channel.eventTypes.MESSAGE_REQUEST, async (event: any) => {
-    const data = await channel.openEventData(event.seal);
+    const data = await channel.getEventData(event);
     console.log(data);
   });
 }, { spark: channels });
