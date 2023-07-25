@@ -6,8 +6,13 @@ const { credentials } = require('./src/credentials')
 const { ethereum } = require('./src/credentials/ethereum')
 const fastifyCookie = require('@fastify/cookie')
 const fastifySession = require('@fastify/session')
+const cors = require('@fastify/cors')
 
 const start = async () => {
+  await server.register(cors, {
+    origin: "http://localhost:5173",
+    credentials: true
+  });
   server.register(fastifyCookie);
   server.register(fastifySession, {
     cookieName: 'sessionId',
@@ -19,7 +24,6 @@ const start = async () => {
   await enableSwarmRelay(server)
   await receiveChannels(server)
   await credentials(server)
-  await ethereum(server)
 
   server.get('/ping', async () => {
     return 'pong\n'

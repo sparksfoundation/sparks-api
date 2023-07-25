@@ -3,78 +3,83 @@ import fs from "fs";
 import path from "path";
 import { createId } from '@paralleldrive/cuid2';
 import { ethers } from "ethers";
-import { buildCredential } from "../credential";
+import { Spark } from "sparks-sdk";
+import { X25519SalsaPoly } from "sparks-sdk/ciphers/X25519SalsaPoly";
+import { Basic } from "sparks-sdk/controllers/Basic";
+import { Ed25519 } from "sparks-sdk/signers/Ed25519";
+import { Blake3 } from "sparks-sdk/hashers/Blake3";
+import { Attester } from "sparks-sdk/agents/Attester";
 
-module.exports.ethereum = async (server: FastifyInstance) => {
-  server.get('/credentials/ethereum/schema', async (request: any, reply) => {    
+const attester = new Spark<
+  [Attester],
+  X25519SalsaPoly,
+  Basic,
+  Blake3,
+  Ed25519
+>({
+  agents: [Attester],
+  cipher: X25519SalsaPoly,
+  controller: Basic,
+  hasher: Blake3,
+  signer: Ed25519,
+});
+
+attester.incept()
+
+export const ethereum = async (server: FastifyInstance) => {
+  server.get('/credentials/ethereum/schema', async (request: any, reply) => {
     const schema = fs.readFileSync(path.join(__dirname, './schema.json'), 'utf8');
     reply.send(schema);
   });
 
   // accept users' public key and issue a challenge code for the user to sign
-  server.get('/credentials/ethereum/challenge', async (request: any, reply) => {
-    const { publicKey } = request.body as any;
-    if (!publicKey) {
-      reply.status(400).send({ error: "Missing public key" });
+  server.post('/credentials/ethereum/challenge', async (request: any, reply) => {
+    const { identifier, publicKey } = request.body as any;
+    if (!identifier || !publicKey) {
+      reply.status(400).send({ error: "Missing identifier or ethereum public key" });
       return;
     }
-      
-      const challengeCode = createId();
-      request.session.ethereum = {
-        challengeCode,
-        publicKey,
-      }
 
-      reply.send({ challengeCode });
+    const code = createId();
+
+    request.session.ethereum = {
+      code,
+      publicKey,
+      identifier,
     }
-  );
+
+    reply.send(code);
+  });
 
   // check the signed challenge code and issue a credential if it's valid
-  server.get('/credentials/ethereum/verify', async (request: any, reply) => {
+  server.post('/credentials/ethereum/claim', async (request: any, reply) => {
     const schema = JSON.parse(fs.readFileSync(path.join(__dirname, './schema.json'), 'utf8'));
-    
-    const credential = buildCredential({
+    const { code, publicKey, identifier } = request.session.ethereum;
+
+    const { signature } = request.body as any;
+
+    if (!signature || !code || !publicKey || !identifier) {
+      reply.status(400).send({ error: "Missing signature, challenge, public key, or identifier" });
+      return;
+    }
+
+    // check the signature
+    const signerAddr = await ethers.verifyMessage(code, signature);
+    if (signerAddr !== publicKey) {
+      reply.status(400).send({ error: "Invalid signature" });
+      return;
+    }
+
+    // TODO - lookup user's token balances befure building the credential
+    const credential = await attester.agents.attester.buildCredential({
       schema,
-      data: { 
-        address: '0x1CeDC0f3Af8f9841B0a1F5c1a4DDc6e1a1629074',
+      data: {
+        id: attester.identifier,
+        address: publicKey,
+        holdings: []
       }
     });
 
-    return reply.send({ credential });
-
-
-
-    // const { signature } = request.body as any;
-    // const { challengeCode, publicKey } = request.session.ethereum;
-
-    // if (!signature) {
-    //   reply.status(400).send({ error: "Missing signature" });
-    //   return;
-    // }
-
-    // if (!challengeCode || !publicKey) {
-    //   reply.status(400).send({ error: "Missing challenge" });
-    //   return;
-    // }
-
-    // const signerAddr = await ethers.verifyMessage(challengeCode, signature);
-    // if (signerAddr !== publicKey) {
-    //   reply.status(400).send({ error: "Invalid signature" });
-    //   return;
-    // }
-
-    // // get the schema as a json object
-    // const schema = JSON.parse(fs.readFileSync(path.join(__dirname, './schema.json'), 'utf8'));
-
-    // // create the credential
-    // const credential = buildCredential({
-    //   schema,
-    //   data: { address: signerAddr }
-    // });
-
-    // console.log(credential)
-
-    // // TODO: issue credential
-    // reply.send({ success: true });
+    return reply.send(JSON.stringify(credential, null, 2));
   });
 }
