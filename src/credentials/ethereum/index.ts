@@ -9,6 +9,8 @@ import { Basic } from "sparks-sdk/controllers/Basic";
 import { Ed25519 } from "sparks-sdk/signers/Ed25519";
 import { Blake3 } from "sparks-sdk/hashers/Blake3";
 import { Attester } from "sparks-sdk/agents/Attester";
+const { EvmChain } = require("@moralisweb3/common-evm-utils");
+const Moralis = require('moralis').default;
 
 const attester = new Spark<
   [Attester],
@@ -27,6 +29,8 @@ const attester = new Spark<
 attester.incept()
 
 export const ethereum = async (server: FastifyInstance) => {
+  Moralis.start({ apiKey: process.env.MORALIS_API });
+
   server.get('/credentials/ethereum/schema', async (request: any, reply) => {
     const schema = fs.readFileSync(path.join(__dirname, './schema.json'), 'utf8');
     reply.send(schema);
@@ -70,18 +74,59 @@ export const ethereum = async (server: FastifyInstance) => {
       return;
     }
 
-    // TODO - lookup user's token balances befure building the credential
-    const credential = await attester.agents.attester.buildCredential({
-      schema,
-      data: {
-        id: attester.identifier,
-        address: publicKey,
-        holdings: []
-      }
-    });
+    // get balances
+    try {
+      const ethBalance = await Moralis.EvmApi.balance.getNativeBalance({
+        "chain": EvmChain.ETHEREUM,
+        "address": publicKey
+      });
 
-    // destroy the session
-    request.session.ethereum = null;
-    return reply.send(JSON.stringify(credential, null, 2));
+      const tokensBalance = await Moralis.EvmApi.token.getWalletTokenBalances({
+        "chain": EvmChain.ETHEREUM,
+        "address": publicKey,
+      });
+
+      const nftsBalance = await Moralis.EvmApi.nft.getWalletNFTs({
+        "chain": EvmChain.ETHEREUM,
+        "format": "decimal",
+        "mediaItems": false,
+        "address": publicKey
+      });
+
+      // TODO - lookup user's token balances befure building the credential
+      const credential = await attester.agents.attester.buildCredential({
+        schema,
+        data: {
+          id: attester.identifier,
+          address: publicKey,
+          balance: ethBalance.toJSON().balance,
+          holdings: [
+            ...nftsBalance.toJSON().result.map((nft: any) => {
+              return {
+                address: nft.token_address,
+                symbol: nft.symbol,
+                balance: nft.amount,
+              }
+            }),
+            ...tokensBalance.toJSON().map((token: any) => {
+              return {
+                address: token.token_address,
+                symbol: token.symbol,
+                balance: token.balance,
+              }
+            })
+          ]
+        }
+      });
+
+      // destroy the session
+      request.session.ethereum = null;
+      return reply.send(JSON.stringify(credential, null, 2));
+
+    } catch (error) {
+      console.log(error);
+      reply.status(400).send({ error: "Failed to fetch balances" });
+      return;
+    }
   });
 }

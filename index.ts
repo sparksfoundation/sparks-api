@@ -1,3 +1,4 @@
+require('dotenv').config()
 const fastify = require('fastify')
 const server = fastify()
 const { enableSwarmRelay } = require('./src/swarm-relay')
@@ -10,7 +11,7 @@ const cors = require('@fastify/cors')
 
 const start = async () => {
   await server.register(cors, {
-    origin: "http://localhost:5173",
+    origin: process.env.IDENTITY_APP_ORIGIN,
     credentials: true
   });
   server.register(fastifyCookie);
