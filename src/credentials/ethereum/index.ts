@@ -1,6 +1,4 @@
 import { FastifyInstance } from "fastify";
-import fs from "fs";
-import path from "path";
 import { createId } from '@paralleldrive/cuid2';
 import { ethers } from "ethers";
 import { Spark } from "sparks-sdk";
@@ -11,6 +9,7 @@ import { Blake3 } from "sparks-sdk/hashers/Blake3";
 import { Attester } from "sparks-sdk/agents/Attester";
 const { EvmChain } = require("@moralisweb3/common-evm-utils");
 const Moralis = require('moralis').default;
+const schema = require('./schema.json');
 
 const attester = new Spark<
   [Attester],
@@ -32,7 +31,6 @@ export const ethereum = async (server: FastifyInstance) => {
   Moralis.start({ apiKey: process.env.MORALIS_API });
 
   server.get('/credentials/ethereum/schema', async (request: any, reply) => {
-    const schema = fs.readFileSync(path.join(__dirname, './schema.json'), 'utf8');
     reply.send(schema);
   });
 
@@ -57,7 +55,6 @@ export const ethereum = async (server: FastifyInstance) => {
 
   // check the signed challenge code and issue a credential if it's valid
   server.post('/credentials/ethereum/claim', async (request: any, reply) => {
-    const schema = JSON.parse(fs.readFileSync(path.join(__dirname, './schema.json'), 'utf8'));
     const { code, publicKey, identifier } = request.session.ethereum;
 
     const { signature } = request.body as any;
