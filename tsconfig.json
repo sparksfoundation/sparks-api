@@ -7,6 +7,7 @@
     "strict": true,
     "skipLibCheck": true,
     "moduleResolution": "NodeNext",
+    "resolveJsonModule": true,
     "rootDir": "./",
     "outDir": "./dist",
     "types": [
@@ -14,5 +15,9 @@
       "@types/node",
       "fastify-websocket-server"
     ]
-  }
+  },
+  "include": [
+    "src/**/*",
+    "src/**/*.json",
+  ]
 }
