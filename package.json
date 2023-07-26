@@ -4,7 +4,7 @@
   "description": "misc api services for the sparks ecosystem",
   "author": "SPARKS Foundation <operations@sparks.foundation>",
   "license": "GPL-3.0-or-later",
-  "main": "dist/index.js",
+  "main": "./dist/index.js",
   "dependencies": {
     "@fastify/cookie": "^8.3.0",
     "@fastify/cors": "^8.3.0",
