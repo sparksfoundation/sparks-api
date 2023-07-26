@@ -80,6 +80,8 @@ export const ethereum = async (server: FastifyInstance) => {
       }
     });
 
+    // destroy the session
+    request.session.ethereum = null;
     return reply.send(JSON.stringify(credential, null, 2));
   });
 }
