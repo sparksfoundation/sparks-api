@@ -14,14 +14,10 @@ const start = async () => {
     credentials: true
   });
 
-  server.register(fastifyCookie);
-
   server.register(fastifySession, {
     key: Buffer.from(process.env.SESSION_SECRET_KEY as string, 'hex'),
     cookie: {
-      path: '/',
-      httpOnly: process.env.IDENTITY_APP_ORIGIN?.startsWith('https'),
-      sameSite: 'none',
+      path: '/'
     }
   });
 
