@@ -9,17 +9,16 @@ const fastifySession = require('@fastify/session');
 const cors = require('@fastify/cors');
 
 const start = async () => {
-  server.register(fastifyCookie);
-
   await server.register(cors, {
     origin: process.env.IDENTITY_APP_ORIGIN,
     credentials: true
   });
 
+  server.register(fastifyCookie);
+
   server.register(fastifySession, {
     secret: process.env.SESSION_SECRET,
     cookie: { secure: 'auto' },
-    sameSite: false,
     expires: 1800000
   });
 
