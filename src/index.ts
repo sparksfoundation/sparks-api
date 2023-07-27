@@ -17,8 +17,8 @@ const start = async () => {
   server.register(fastifyCookie);
   server.register(fastifySession, {
     cookieName: 'sessionId',
-    secret: 'a secret with minimum length of 32 characters',
-    cookie: { secure: false },
+    secret: process.env.SESSION_SECRET,
+    cookie: { secure: !process.env.IDENTITY_APP_ORIGIN?.startsWith('http://localhost') },
     expires: 1800000
   });
 
