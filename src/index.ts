@@ -5,7 +5,7 @@ const { enableSwarmRelay } = require('./swarm-relay');
 const { receiveChannels } = require('./channels/restAPI');
 const { credentials } = require('./credentials');
 const fastifyCookie = require('@fastify/cookie');
-const fastifySession = require('@fastify/session');
+const fastifySession = require('@fastify/secure-session');
 const cors = require('@fastify/cors');
 
 const start = async () => {
@@ -17,11 +17,11 @@ const start = async () => {
   server.register(fastifyCookie);
 
   server.register(fastifySession, {
-    secret: process.env.SESSION_SECRET,
-    cookie: { secure: 'auto' },
-    expires: 1800000,
-    sameSite: false,
-    domain: process.env.IDENTITY_APP_DOMAIN,
+    key: Buffer.from(process.env.SESSION_SECRET_KEY as string, 'hex'),
+    cookie: {
+      path: '/',
+      httpOnly: process.env.IDENTITY_APP_ORIGIN?.startsWith('https'),
+    }
   });
 
   await enableSwarmRelay(server);
