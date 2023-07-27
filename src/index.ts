@@ -19,8 +19,9 @@ const start = async () => {
     cookie: {
       path: '/',
       httpOnly: process.env.IDENTITY_APP_ORIGIN?.startsWith('https'),
-      sameSite: 'none',
+      secure: process.env.IDENTITY_APP_ORIGIN?.startsWith('https'),
       domain: process.env.IDENTITY_APP_ORIGIN?.startsWith('http://localhost') ? 'localhost' : 'sparks.foundation',
+      sameSite: 'none',
     }
   });
 
