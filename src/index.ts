@@ -20,6 +20,7 @@ const start = async () => {
       path: '/',
       httpOnly: process.env.IDENTITY_APP_ORIGIN?.startsWith('https'),
       sameSite: 'none',
+      domain: process.env.IDENTITY_APP_ORIGIN?.startsWith('http://localhost') ? 'localhost' : 'sparks.foundation',
     }
   });
 
