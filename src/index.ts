@@ -17,7 +17,8 @@ const start = async () => {
   server.register(fastifySession, {
     key: Buffer.from(process.env.SESSION_SECRET_KEY as string, 'hex'),
     cookie: {
-      path: '/'
+      path: '/',
+      httpOnly: process.env.IDENTITY_APP_ORIGIN?.startsWith('https'),
     }
   });
 
