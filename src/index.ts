@@ -19,7 +19,9 @@ const start = async () => {
   server.register(fastifySession, {
     secret: process.env.SESSION_SECRET,
     cookie: { secure: 'auto' },
-    expires: 1800000
+    expires: 1800000,
+    sameSite: false,
+    domain: process.env.IDENTITY_APP_DOMAIN,
   });
 
   await enableSwarmRelay(server);
