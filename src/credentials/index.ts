@@ -9,7 +9,6 @@ import { youtube } from "./youtube";
 module.exports.credentials = async (server: FastifyInstance) => {
   // return all the available credentials (with schemas) based on the folders in this directory
   server.get('/credentials', async (request, reply) => {
-    
     reply.send(['ethereum']);
   });
 
