@@ -44,18 +44,18 @@ export const ethereum = async (server: FastifyInstance) => {
 
     const code = createId();
 
-    request.session.ethereum = {
+    request.session.set('ethereum',  {
       code,
       publicKey,
       identifier,
-    }
+    })
 
     reply.send(code);
   });
 
   // check the signed challenge code and issue a credential if it's valid
   server.post('/credentials/ethereum/claim', async (request: any, reply) => {
-    const { code, publicKey, identifier } = request.session.ethereum;
+    const { code, publicKey, identifier } = request.session.get('ethereum');
 
     const { signature } = request.body as any;
 

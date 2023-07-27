@@ -11,9 +11,9 @@ dependencies:
   '@fastify/cors':
     specifier: ^8.3.0
     version: 8.3.0
-  '@fastify/session':
-    specifier: ^10.4.0
-    version: 10.4.0
+  '@fastify/secure-session':
+    specifier: ^6.1.0
+    version: 6.1.0
   '@fastify/static':
     specifier: ^6.10.2
     version: 6.10.2
@@ -301,6 +301,15 @@ packages:
       fast-json-stringify: 5.7.0
     dev: false
 
+  /@fastify/secure-session@6.1.0:
+    resolution: {integrity: sha512-TBg8tNw1SejDOmjnS/wpaDzvXfrEPQ3ZlYekQqqu+lXimWBZYbXyF1yT4EftOBW87PtmVEIAabR5ogBbz12diQ==}
+    hasBin: true
+    dependencies:
+      '@fastify/cookie': 8.3.0
+      fastify-plugin: 4.5.1
+      sodium-native: 4.0.4
+    dev: false
+
   /@fastify/send@2.1.0:
     resolution: {integrity: sha512-yNYiY6sDkexoJR0D8IDy3aRP3+L4wdqCpvx5WP+VtEU58sn7USmKynBzDQex5X42Zzvw2gNzzYgP90UfWShLFA==}
     dependencies:
@@ -309,13 +318,6 @@ packages:
       fast-decode-uri-component: 1.0.1
       http-errors: 2.0.0
       mime: 3.0.0
-    dev: false
-
-  /@fastify/session@10.4.0:
-    resolution: {integrity: sha512-0lABZ0Rcg0VjiRj5xWeAwC1LBwgclaoAPikaONxTz0LJQTPPWSfSDDXafLkGDAqrl5KF8sC3jqLiZ9CbRHZ0Jg==}
-    dependencies:
-      fastify-plugin: 4.5.1
-      safe-stable-stringify: 2.4.3
     dev: false
 
   /@fastify/static@6.10.2:
