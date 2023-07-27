@@ -1,3 +1,5 @@
+import { createId } from "@paralleldrive/cuid2"
+
 require('dotenv').config()
 const fastify = require('fastify')
 const server = fastify()
@@ -16,7 +18,7 @@ const start = async () => {
   });
   server.register(fastifyCookie);
   server.register(fastifySession, {
-    cookieName: 'sessionId',
+    cookieName: createId(),
     secret: process.env.SESSION_SECRET,
     cookie: { secure: !process.env.IDENTITY_APP_ORIGIN?.startsWith('http://localhost') },
     expires: 1800000
