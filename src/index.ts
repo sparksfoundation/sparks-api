@@ -16,11 +16,12 @@ const start = async () => {
 
   server.register(fastifySession, {
     key: Buffer.from(process.env.SESSION_SECRET_KEY as string, 'hex'),
-    cookie: {
+    cookie: process.env.IDENTITY_APP_ORIGIN?.startsWith('http://localhost') ? {
       path: '/',
-      httpOnly: process.env.IDENTITY_APP_ORIGIN?.startsWith('https'),
-      secure: process.env.IDENTITY_APP_ORIGIN?.startsWith('https'),
-      domain: process.env.IDENTITY_APP_ORIGIN?.startsWith('http://localhost') ? 'localhost' : 'sparks.foundation',
+    } : {
+      httpOnly: true,
+      secure: true,
+      domain: 'sparks.foundation',
       sameSite: 'none',
     }
   });
